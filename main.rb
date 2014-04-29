@@ -3,6 +3,32 @@ require 'sinatra'
 
 set :sessions, true
 
+### START METHODS ###
+def calculate_total(cards)
+  # [['H', '3'], ['S', 'Q'], ... ]
+  arr = cards.map{|e| e[1] }
+
+  total = 0
+  arr.each do |value|
+    if value == "Ace"
+      total += 11
+    elsif value.to_i == 0 # J, Q, K
+      total += 10
+    else
+      total += value.to_i
+    end
+  end
+
+  #correct for Aces
+  arr.select{|e| e == "Ace"}.count.times do
+    total -= 10 if total > 21
+  end
+
+  total
+end
+
+### END METHODS ###
+
 get '/' do
   erb :welcome
 end
@@ -20,6 +46,8 @@ post '/start_game' do
   session[:dealer_cards] << session[:deck].pop
   session[:player_cards] << session[:deck].pop
   session[:dealer_cards] << session[:deck].pop
+  session[:player_total] = calculate_total(session[:player_cards])
+  session[:dealer_total] = calculate_total(session[:dealer_cards])
 
   erb :betting_form
 end
@@ -30,11 +58,12 @@ end
 
 get '/player_hit' do
   session[:player_cards] << session[:deck].pop
+  session[:player_total] = calculate_total(session[:player_cards])
   erb :betting_form
 end
 
 get '/player_stay' do
-  erb :betting_form
+  #DEALER LOGIC
 end
 
 
