@@ -10,7 +10,7 @@ def calculate_total(cards)
 
   total = 0
   arr.each do |value|
-    if value == "Ace"
+    if value == "ACE"
       total += 11
     elsif value.to_i == 0 # J, Q, K
       total += 10
@@ -20,7 +20,7 @@ def calculate_total(cards)
   end
 
   #correct for Aces
-  arr.select{|e| e == "Ace"}.count.times do
+  arr.select{|e| e == "ACE"}.count.times do
     total -= 10 if total > 21
   end
 
@@ -29,6 +29,9 @@ end
 
 ### END METHODS ###
 
+
+### START SINATRA ROUTES ###
+
 get '/' do
   erb :welcome
 end
@@ -36,7 +39,7 @@ end
 post '/start_game' do
   session[:username] = params[:username]
   suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
-  cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+  cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING', 'ACE']
   session[:deck] = suits.product(cards)
   3.times { session[:deck].shuffle! }
 
@@ -63,9 +66,26 @@ get '/player_hit' do
 end
 
 get '/player_stay' do
-  #DEALER LOGIC
+  dealer_hit(session[:dealer_cards], session[:deck], session[:dealer_total])
+  session[:dealer_total] = calculate_total(session[:dealer_cards])
+  erb :betting_form
 end
 
+### HELPERS START ###
+helpers do
+  def dealer_hit(cards, deck, score)
+    while score < 17
+      cards << deck.pop
+      score = calculate_total(cards)
+    end
+    cards
+  end
+
+
+end
+
+
+### HELPERS END ###
 
 
 
