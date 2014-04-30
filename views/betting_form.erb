@@ -4,9 +4,15 @@
 
 <h4>Here are the dealer's up-card:</h4>
   <%= session[:dealer_cards][0] %>
+  <div class="alert alert-info">
+  <%= card_image(session[:dealer_cards]) %>
+  </div>
 
 <h4>Here are your cards:</h4>
   <%= session[:player_cards] %>
+  <div class="alert alert-info">
+  <%= session[:player_cards].each do |x| card_image(x) end %>
+  </div>
 
   Players's score is: <%= session[:player_total] %>
 
