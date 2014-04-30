@@ -11,7 +11,7 @@
 <h4>Here are your cards:</h4>
   <%= session[:player_cards] %>
   <div class="alert alert-info">
-  <%= session[:player_cards].each do |x| card_image(x) end %>
+  <%= session[:player_cards].each do |x| card_image(x) erb end %>
   </div>
 
   Players's score is: <%= session[:player_total] %>

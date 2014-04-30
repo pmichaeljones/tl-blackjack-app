@@ -118,11 +118,11 @@ helpers do
 require 'pry'
 
   def card_image(array)
+    file_path = ""
     array.each do |x|
-      file_path = ""
       file_path = "<img src=" + '"/images/cards/' + x[0].to_s.downcase + "_" + x[1].to_s.downcase + '.jpg"' + "/>"
-      return file_path
     end
+    file_path.to_s
   end
 
 
