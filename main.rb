@@ -75,7 +75,21 @@ get '/dealer_turn' do
 end
 
 get '/play_again' do
-  redirect '/'
+  suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
+  cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING', 'ACE']
+  session[:deck] = suits.product(cards)
+  3.times { session[:deck].shuffle! }
+
+  session[:dealer_cards] = []
+  session[:player_cards] = []
+  session[:player_cards] << session[:deck].pop
+  session[:dealer_cards] << session[:deck].pop
+  session[:player_cards] << session[:deck].pop
+  session[:dealer_cards] << session[:deck].pop
+  session[:player_total] = calculate_total(session[:player_cards])
+  session[:dealer_total] = calculate_total(session[:dealer_cards])
+
+  erb :betting_form
 end
 
 get '/finish' do
