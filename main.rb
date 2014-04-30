@@ -74,6 +74,14 @@ get '/dealer_turn' do
   erb :dealer_turn
 end
 
+get '/play_again' do
+  redirect '/'
+end
+
+get '/finish' do
+  erb :end_game
+end
+
 
 ### HELPERS START ###
 helpers do

@@ -11,6 +11,12 @@
 <h4>Here are your cards.</h4>
   <%= session[:player_cards] %>
   Players's score is: <%= session[:player_total] %>
+  <% if session[:player_total] > 21 %>
+    <div class="alert alert-error">You busted!</div>
+    <h4>Play Again?</h4>
+    <a class="btn btn-action" method="get" href="/play_again">Yes</a>
+    <a class="btn btn-info" method="get" href="/finish">No</a>
+  <% end %>
 
 <h3>Do you want to Hit or Stay?</h3>
 
