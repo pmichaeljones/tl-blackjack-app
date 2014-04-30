@@ -38,6 +38,8 @@ end
 
 post '/start_game' do
   session[:username] = params[:username]
+  session[:chip_count] = 500
+  session[:bet] = params[:bet]
   suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
   cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING', 'ACE']
   session[:deck] = suits.product(cards)
@@ -55,10 +57,6 @@ post '/start_game' do
   erb :betting_form
 end
 
-get '/player_profile' do
-  erb :"/PlayerViews/player_profile"
-end
-
 get '/player_hit' do
   session[:player_cards] << session[:deck].pop
   session[:player_total] = calculate_total(session[:player_cards])
@@ -66,10 +64,16 @@ get '/player_hit' do
 end
 
 get '/player_stay' do
+  erb :player_staying
+end
+
+get '/dealer_turn' do
   dealer_hit(session[:dealer_cards], session[:deck], session[:dealer_total])
   session[:dealer_total] = calculate_total(session[:dealer_cards])
-  erb :betting_form
+  session[:dealer_busted] = bust?(session[:dealer_total])
+  erb :dealer_turn
 end
+
 
 ### HELPERS START ###
 helpers do
@@ -80,6 +84,16 @@ helpers do
     end
     cards
   end
+
+  def bust?(score)
+    if score > 21
+      true
+    else
+      false
+    end
+
+  end
+
 
 
 end
