@@ -70,7 +70,6 @@ end
 get '/dealer_turn' do
   dealer_hit(session[:dealer_cards], session[:deck], session[:dealer_total])
   session[:dealer_total] = calculate_total(session[:dealer_cards])
-  session[:dealer_busted] = bust?(session[:dealer_total])
   erb :dealer_turn
 end
 
