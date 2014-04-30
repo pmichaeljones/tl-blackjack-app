@@ -3,23 +3,21 @@
 
 
 <h4>Here are the dealer's cards</h4>
-  <%= session[:dealer_cards] %>
-  Dealer's score is: <%= session[:dealer_total] %>
-<h4>Dealer Hits on 16. Stays on 17.</h4>
-
+  <%= session[:dealer_cards[0]] %>
 
 <h4>Here are your cards.</h4>
   <%= session[:player_cards] %>
+
   Players's score is: <%= session[:player_total] %>
-  <% if session[:player_total] > 21 %>
+
+  <% if session[:player_total] < 21 %>
+  <h3>Do you want to Hit or Stay?</h3>
+    <a class="btn btn-danger" method="get" href="/player_hit">Hit</a>
+    <a class="btn btn-success" method="get" href="/player_stay">Stay</a>
+  <% elsif session[:player_total] > 21 %>
     <div class="alert alert-error">You busted!</div>
     <h4>Play Again?</h4>
     <a class="btn btn-action" method="get" href="/play_again">Yes</a>
     <a class="btn btn-info" method="get" href="/finish">No</a>
   <% end %>
-
-<h3>Do you want to Hit or Stay?</h3>
-
-<a class="btn btn-danger" method="get" href="/player_hit">Hit</a>
-<a class="btn btn-success" method="get" href="/player_stay">Stay</a>
 
