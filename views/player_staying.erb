@@ -1,0 +1,16 @@
+<h4>Hello <%= session[:username] %></h4>
+<h4>Your current bet is: $<%= session[:bet] %></h4>
+
+
+<h4>Here are the dealer's up-card:</h4>
+  <%= session[:dealer_cards][0] %>
+
+ <h4>Dealer Hits on 16. Stays on 17.</h4>
+
+<h4>Here are your cards:</h4>
+  <%= session[:player_cards] %>
+  Players's score is: <%= session[:player_total] %>
+
+<h3>You Chose to Stay with: <%= session[:player_total] %>
+<br/>
+<a class="btn btn-danger" method="get" href="/dealer_turn">Show Dealer's Cards</a>

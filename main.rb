@@ -119,10 +119,8 @@ require 'pry'
 
   def card_image(array)
     file_path = ""
-    array.each do |x|
-      file_path = "<img src=" + '"/images/cards/' + x[0].to_s.downcase + "_" + x[1].to_s.downcase + '.jpg"' + "/>"
-    end
-    file_path.to_s
+    file_path = "<img src=" + '"/images/cards/' + array[0].to_s.downcase + "_" + array[1].to_s.downcase + '.jpg"' + "/>"
+    file_path
   end
 
 

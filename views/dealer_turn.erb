@@ -1,0 +1,33 @@
+<h4>Hello <%= session[:username] %></h4>
+<h4>Your current bet is: $<%= session[:bet] %></h4>
+
+<h4>Here are the dealer's cards:</h4>
+  <%= session[:dealer_cards] %>
+
+  Dealer's score is: <%= session[:dealer_total] %>
+
+
+<h4>Here are your cards:</h4>
+  <%= session[:player_cards] %>
+
+  Players's score is: <%= session[:player_total] %>
+
+<br/>
+
+<% if session[:dealer_total] <= 21 %>
+  <% if session[:dealer_total] > session[:player_total] %>
+    <div class="alert alert-error">The Dealer's <%= session[:dealer_total] %> beats the player's <%= session[:player_total] %>. Dealer wins.</div>
+  <% elsif session[:dealer_total] < session[:player_total] %>
+    <div class="alert alert-success">The Player's <%= session[:player_total] %> beats the dealer's <%= session[:dealer_total] %>. Player wins!</div>
+  <% elsif session[:dealer_total] == session[:player_total] %>
+    <div class="alert alert-info">Player & dealer each have <%= session[:dealer_total] %>. It's a push. House wins. Sorry.</div>
+  <% end %>
+   <h4>Play Again?</h4>
+    <a class="btn btn-action" method="get" href="/play_again">Yes</a>
+    <a class="btn btn-info" method="get" href="/finish">No</a>
+<% elsif session[:dealer_total] > 21 %>
+    <div class="alert alert-success">Dealer Busted Baby! You Win</div>
+     <h4>Play Again?</h4>
+    <a class="btn btn-action" method="get" href="/play_again">Yes</a>
+    <a class="btn btn-info" method="get" href="/finish">No</a>
+<% end %>
