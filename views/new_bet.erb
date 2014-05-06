@@ -1,5 +1,5 @@
 <form action="/start_game" method="post">
-  <h4>Player has $<%= session[:chip_count] %> Available to Bet.<br/>
+  <h4><%= session[:username] %> has <%= session[:chip_count] %> Available to Bet.<br/>
     How much do they bet?</h4>
     <input type="text" name="new_bet" placeholder="Bet Amount"><br/>
     <button type="submit" class="btn btn-danger">Start Game & Deal Cards</button>

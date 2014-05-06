@@ -1,0 +1,7 @@
+<h3><%= session[:username] %> Can't Bet $<%= session[:bet] %> yet.<br/>They don't have that much available. Please Bet Less than $<%= session[:chip_count] %>.</h3>
+
+<form action="/start_game" method="post">
+    How much do they bet?</h4><br/>
+    <input type="text" name="bet" placeholder="Bet Amount"><br/>
+    <button type="submit" class="btn btn-danger">Start Game & Deal Cards</button>
+</form>
