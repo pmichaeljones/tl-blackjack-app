@@ -2,13 +2,20 @@
 <h4>Your current bet is: $<%= session[:bet] %></h4>
 
 <h4>Here are the dealer's cards:</h4>
-  <%= session[:dealer_cards] %>
+  <div class="alert alert-info">
+  <% session[:dealer_cards].each do |card| %>
+    <%= card_image(card) %>
+  <% end %>
+  </div>
 
   Dealer's score is: <%= session[:dealer_total] %>
 
-
 <h4>Here are your cards:</h4>
-  <%= session[:player_cards] %>
+  <div class="alert alert-info">
+  <% session[:player_cards].each do |card| %>
+    <%= card_image(card) %>
+  <% end %>
+  </div>
 
   Players's score is: <%= session[:player_total] %>
 
@@ -16,18 +23,27 @@
 
 <% if session[:dealer_total] <= 21 %>
   <% if session[:dealer_total] > session[:player_total] %>
-    <div class="alert alert-error">The Dealer's <%= session[:dealer_total] %> beats the player's <%= session[:player_total] %>. Dealer wins.</div>
+    <% session[:chip_count] = session[:chip_count] %>
+    <div class="alert alert-error">The Dealer's <%= session[:dealer_total] %> beats the player's <%= session[:player_total] %>. Dealer wins & players loses $<%= session[:bet] %>.<br/>
+      Current chip count is: $<%= session[:chip_count] %></div>
   <% elsif session[:dealer_total] < session[:player_total] %>
-    <div class="alert alert-success">The Player's <%= session[:player_total] %> beats the dealer's <%= session[:dealer_total] %>. Player wins!</div>
+    <% session[:chip_count] += session[:bet].to_i*2 %>
+    <div class="alert alert-success">The Player's <%= session[:player_total] %> beats the dealer's <%= session[:dealer_total] %>. Player wins $<%= session[:bet]%>!<br/>
+      Current chip count is: $<%= session[:chip_count] %>
+    </div>
   <% elsif session[:dealer_total] == session[:player_total] %>
-    <div class="alert alert-info">Player & dealer each have <%= session[:dealer_total] %>. It's a push. House wins. Sorry.</div>
+    <% session[:chip_count] = session[:chip_count] %>
+    <div class="alert alert-info">Player & dealer each have <%= session[:dealer_total] %>. It's a push. House wins. Player loses $<%= session[:bet] %>. Sorry.<br/>
+      Current chip count is: $<%= session[:chip_count] %></div>
   <% end %>
    <h4>Play Again?</h4>
-    <a class="btn btn-action" method="get" href="/play_again">Yes</a>
+    <a class="btn btn-action" method="get" href="/new_bet">Yes</a>
     <a class="btn btn-info" method="get" href="/finish">No</a>
 <% elsif session[:dealer_total] > 21 %>
-    <div class="alert alert-success">Dealer Busted Baby! You Win</div>
+    <% session[:chip_count] += session[:bet].to_i*2 %>
+    <div class="alert alert-success">Dealer Busted Baby! Player Wins $<%= session[:bet] %>!<br/>
+      Current chip count is: $<%= session[:chip_count] %></div>
      <h4>Play Again?</h4>
-    <a class="btn btn-action" method="get" href="/play_again">Yes</a>
+    <a class="btn btn-action" method="get" href="/new_bet">Yes</a>
     <a class="btn btn-info" method="get" href="/finish">No</a>
 <% end %>
