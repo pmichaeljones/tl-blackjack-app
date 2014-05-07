@@ -83,7 +83,6 @@ get '/proper_amount' do
 end
 
 get '/player_hit' do
-  session[:username] = session[:username]
   session[:player_cards] << session[:deck].pop
   session[:player_total] = calculate_total(session[:player_cards])
   erb :betting_form
