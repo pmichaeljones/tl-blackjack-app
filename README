@@ -2,3 +2,58 @@
 2. From the command line, you can start the server by 'ruby main.rb'
 3. If you have the 'shotgun' gem installed, you can instead run 'shotgun main.rb'
 4. ctrl+c to stop the server
+
+Answers to the Quiz:
+
+What is HTML? What is CSS? What is Javascript?
+- Markup language for displaying content on a browser
+- Language used to determine how content is displayed and oriented
+- Language for adding interactivity to a webpage
+
+What are the major parts of an HTTP request?
+- Method/VERB describing the action desired
+- Header
+- Body
+
+What are the major parts of an HTTP response?
+- Status code
+- Content
+
+How do you submit an HTTP POST request, with a "username" attribute set to "bob"? What if we wanted a GET request instead?
+post '/' {session[:username] = params[:name]}
+-You wouldn't use a GET request because you're affecting data which is what POST methods are for.
+
+
+
+Why is it important for us, as web developers, to understand that HTTP is a "stateless" protocol?
+- We need to continually re-render the environment for the end-user because nothing is persistent. We need to create the state for every single request.
+
+
+If the internet is just HTTP requests/responses, why do we only use browsers to interface with web applications? Are there any other options?
+- I honestly don't know. I'm sure you could use command line, but that'd be boring. Browsers make interaction enjoyable.
+
+
+What is MVC, and why is it important?
+- It's the separation of a web app into 3 areas. The database(model), the view(templates) and the controller(the actions area)
+
+The below questions are about Sinatra:
+
+
+At a high level, how are requests processed?
+- A method is taken on a certain route and a block of code is executed
+
+
+In the controller/action, what's the difference between rendering and redirecting?
+- Rendering displays a template while redirecting sends you to another request action
+
+In the ERB view template, how do you show dynamic content?
+- You could set an instance variable to display the new content if the variable existed.
+
+
+Given what you know about ERB templates, when do you suppose the ERB template is turned into HTML?
+- After Ruby code is executed, the ERB template gets turned into HTML and sent back to the client-side
+
+
+What's the role of instance variables in Sinatra?
+- Used for adjusting presentation of content based on state application
+
