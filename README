@@ -12,17 +12,17 @@ What is HTML? What is CSS? What is Javascript?
 
 What are the major parts of an HTTP request?
 - Method/VERB describing the action desired
-- Header
-- Body
+- URL to perform action on
+- Parameters
 
 What are the major parts of an HTTP response?
 - Status code
-- Content
+- Payload
+- - Render or Redirect
 
 How do you submit an HTTP POST request, with a "username" attribute set to "bob"? What if we wanted a GET request instead?
 post '/' {session[:username] = params[:name]}
 -You wouldn't use a GET request because you're affecting data which is what POST methods are for.
-
 
 
 Why is it important for us, as web developers, to understand that HTTP is a "stateless" protocol?
@@ -30,7 +30,7 @@ Why is it important for us, as web developers, to understand that HTTP is a "sta
 
 
 If the internet is just HTTP requests/responses, why do we only use browsers to interface with web applications? Are there any other options?
-- I honestly don't know. I'm sure you could use command line, but that'd be boring. Browsers make interaction enjoyable.
+- I honestly don't know. I'm sure you could use command line, but that'd be boring. Browsers make interaction enjoyable. I believe any RESTful interface would work for this.
 
 
 What is MVC, and why is it important?
