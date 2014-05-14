@@ -29,111 +29,6 @@ end
 
 ### END METHODS ###
 
-
-### START SINATRA ROUTES ###
-
-get '/' do
-  erb :welcome
-end
-
-post '/start_game' do
-  session[:username] = params[:username]
-
-  if params[:new_bet]
-    session[:username] = session[:username]
-    if params[:new_bet].to_i > session[:chip_count]
-      session[:bet] = params[:new_bet].to_i
-      redirect '/proper_amount'
-    else
-      session[:bet] = params[:new_bet].to_i
-      session[:chip_count] = session[:chip_count]
-    end
-  else
-    session[:username] = session[:username]
-    if params[:bet].to_i > 500
-      session[:chip_count] = 500
-      session[:bet] = params[:bet].to_i
-      redirect '/proper_amount'
-    else
-    session[:bet] = params[:bet].to_i
-    session[:chip_count] = 500
-    end
-  end
-
-  session[:chip_count] -= session[:bet]
-  suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
-  cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING', 'ACE']
-  session[:deck] = suits.product(cards)
-  3.times { session[:deck].shuffle! }
-
-  session[:dealer_cards] = []
-  session[:player_cards] = []
-  session[:player_cards] << session[:deck].pop
-  session[:dealer_cards] << session[:deck].pop
-  session[:player_cards] << session[:deck].pop
-  session[:dealer_cards] << session[:deck].pop
-  session[:player_total] = calculate_total(session[:player_cards])
-  session[:dealer_total] = calculate_total(session[:dealer_cards])
-
-  erb :betting_form
-end
-
-get '/proper_amount' do
-  erb :proper_amount
-end
-
-get '/player_hit' do
-  session[:player_cards] << session[:deck].pop
-  session[:player_total] = calculate_total(session[:player_cards])
-  erb :betting_form
-end
-
-get '/player_stay' do
-  session[:username] = session[:username]
-  erb :player_staying
-end
-
-get '/dealer_turn' do
-  session[:username] = session[:username]
-  dealer_hit(session[:dealer_cards], session[:deck], session[:dealer_total])
-  session[:dealer_total] = calculate_total(session[:dealer_cards])
-  erb :dealer_turn
-end
-
-get '/new_bet' do
-  session[:username] = session[:username]
-  if session[:chip_count] <= 0
-    erb :you_lose
-  else
-    erb :new_bet
-  end
-
-end
-
-get '/play_again' do
-  session[:username] = session[:username]
-  suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs']
-  cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING', 'ACE']
-  session[:deck] = suits.product(cards)
-  3.times { session[:deck].shuffle! }
-
-  session[:dealer_cards] = []
-  session[:player_cards] = []
-  session[:player_cards] << session[:deck].pop
-  session[:dealer_cards] << session[:deck].pop
-  session[:player_cards] << session[:deck].pop
-  session[:dealer_cards] << session[:deck].pop
-  session[:player_total] = calculate_total(session[:player_cards])
-  session[:dealer_total] = calculate_total(session[:dealer_cards])
-
-  erb :betting_form
-end
-
-get '/finish' do
-  erb :end_game
-end
-
-
 ### HELPERS START ###
 helpers do
   def dealer_hit(cards, deck, score)
@@ -166,6 +61,4 @@ end
 
 
 ### HELPERS END ###
-
-
 
