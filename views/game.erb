@@ -1,0 +1,42 @@
+<h2>Jones Casino BlackJack!</h2>
+<div class="well">
+  <div class="row">
+    <div class="span4">
+      <h4><%= session[:player]%>'s Betting Info</h4>
+    </div>
+    <div class="span3 alert alert-success borderbox">
+      <h4>Current Bet:  $<%= session[:bet] %></h4>
+    </div>
+    <div class="span2 alert alert-success borderbox">
+      <h4>Pot: $<%= session[:pot] %></h4>
+    </div>
+  </div>
+</div>
+<div class="well hunter-green">
+  <h3 class="white">Dealer's Cards</h3>
+  <% if @dealer_turn %>
+  <form action="/dealer_hit" method="post">
+    <input type="submit" class="btn btn-error" value="Dealer's Next Card"/>
+  </form>
+  <% session[:dealer_cards].each do |x| %>
+      <%= card_image(x) %>
+      <% end %>
+  <% else %>
+    <img src="/images/cards/cover.jpg" />
+    <%= card_image(session[:dealer_cards][1]) %>
+  <% end %>
+  <h3 class="white"><%= session[:player]%>'s Cards</h3>
+    <% session[:player_cards].each do |x| %>
+      <%= card_image(x) %>
+      <% end %>
+  <h5 class="white"><%= session[:player]%>'s Score: <%= session[:player_score] %></h5>
+</div>
+
+  <form action="/player_hit" method="post">
+    <input type="submit" value="Hit" class="btn btn-info floater_left">
+  </form>
+  <form action="/player_stay" method="post">
+    <input type="submit" value="Stay" class="btn btn-success floater_left"/>
+  </form>
+
+

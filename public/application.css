@@ -1,0 +1,16 @@
+.borderbox {
+  border: 2px #000 solid;
+}
+
+.floater_left {
+  float: left;
+  margin-left: 10px;
+}
+
+.hunter-green {
+  background: darkgreen;
+}
+
+.white {
+  color: #fff;
+}

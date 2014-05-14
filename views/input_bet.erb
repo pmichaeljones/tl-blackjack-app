@@ -1,0 +1,15 @@
+<% if @new_game %>
+  <h3>Welcome <%= session[:player] %>!</h3>
+<% else %>
+  <h3>Ready for another round?</h3>
+<% end %>
+
+<h3>You have, $<%= session[:pot]%> available to bet.</h3>
+
+<h3>How much do you want to bet?</h3>
+
+<form action="/game" method="post">
+  <input type="text" name="bet" placeholder="Bet Amount" />
+  <br/>
+  <input type="submit" value="Place Bet" class="btn btn-info"/>
+</form>

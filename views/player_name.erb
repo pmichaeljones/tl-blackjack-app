@@ -1,1 +1,19 @@
-Hello!
+<h2>Welcome to Jones Casino</h2>
+
+<h3>Let's Play Some BlackJack!</h3>
+
+<h4>What's The Player's Name?</h4>
+<% if @message %>
+  <div class="alert">
+    <%= @message %>
+  </div>
+<% end %>
+
+<form action='/bet' method="post">
+  <input type="text" placeholder="Player Name" name="player" />
+  <br/>
+  <input class="btn btn-info" type="submit" value="Get Started!" />
+</form>
+
+
+
