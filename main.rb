@@ -6,6 +6,12 @@ set :sessions, true
 BLACKJACK_AMOUNT = 21
 DEALER_MUST_HIT = 16
 
+before do
+
+@action_buttons = true
+
+end
+
 ### HELPERS START ###
 helpers do
 
@@ -36,6 +42,9 @@ helpers do
     file_path = ""
     file_path = "<img src=" + '"/images/cards/' + array[0].to_s.downcase + "_" + array[1].to_s.downcase + '.jpg"' + "/>"
     file_path
+  end
+
+  def who_wins
   end
 
 
@@ -95,33 +104,13 @@ end
 post '/player_hit' do
   session[:player_cards] << session[:deck].pop
   session[:player_score] = calculate_total(session[:player_cards])
-  @outcome_win = "You win!"
-  @outcome_lose = "you lose!"
+  if session[:player_score] > BLACKJACK_AMOUNT
+    @outcome_lose = "You Busted!"
+    @action_buttons = false
+    @play_again = true
+  end
+
   erb :game
+
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

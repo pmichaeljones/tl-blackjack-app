@@ -12,6 +12,17 @@
     <%= @outcome_lose %>
   </div>
 <% end %>
+<% if @play_again %>
+<div class="alert alert-success clearfix">
+  <h4>Do You Want to Play Again?</h4><br/>
+  <form action="/play_again" method="post" class="floater_left">
+    <input type="submit" value="Yes" class="btn btn-success" >
+  </form>
+  <form action="/end_game" method="post" class="floater_left">
+    <input type="submit" value="No" class="btn btn-danger floater_left" >
+</form>
+</div>
+<% end %>
 <div class="well hunter-green">
   <h3 class="white">Dealer's Cards</h3>
   <% if @dealer_turn %>
@@ -31,12 +42,13 @@
       <% end %>
   <h5 class="white"><%= session[:player]%>'s Score: <%= session[:player_score] %></h5>
 </div>
-
+  <% if @action_buttons %>
   <form action="/player_hit" method="post">
     <input type="submit" value="Hit" class="btn btn-info floater_left">
   </form>
   <form action="/player_stay" method="post">
     <input type="submit" value="Stay" class="btn btn-success floater_left"/>
   </form>
+  <% end %>
 
 
