@@ -1,17 +1,17 @@
-<h2>Jones Casino BlackJack!</h2>
-<div class="well">
-  <div class="row">
-    <div class="span4">
-      <h4><%= session[:player]%>'s Betting Info</h4>
-    </div>
-    <div class="span3 alert alert-success borderbox">
-      <h4>Current Bet:  $<%= session[:bet] %></h4>
-    </div>
-    <div class="span2 alert alert-success borderbox">
-      <h4>Pot: $<%= session[:pot] %></h4>
-    </div>
+<h3>Jones Casino BlackJack!</h3>
+  <div class="well alert alert-info">
+    <h4><%= session[:player]%>'s Betting Info || Current Bet:  $<%= session[:bet] %> || Pot: $<%= session[:pot] %></h4>
   </div>
-</div>
+<% if @outcome_win %>
+  <div class="alert alert-success">
+    <%= @outcome_win %>
+  </div>
+<% end %>
+<% if @outcome_lose %>
+  <div class="alert alert-error">
+    <%= @outcome_lose %>
+  </div>
+<% end %>
 <div class="well hunter-green">
   <h3 class="white">Dealer's Cards</h3>
   <% if @dealer_turn %>

@@ -95,7 +95,8 @@ end
 post '/player_hit' do
   session[:player_cards] << session[:deck].pop
   session[:player_score] = calculate_total(session[:player_cards])
-  @dealer_turn = true
+  @outcome_win = "You win!"
+  @outcome_lose = "you lose!"
   erb :game
 end
 
