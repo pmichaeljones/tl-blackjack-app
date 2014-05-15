@@ -1,4 +1,3 @@
-<h3>Jones Casino BlackJack!</h3>
   <div class="well alert alert-info">
     <h4><%= session[:player]%>'s Betting Info || Current Bet:  $<%= session[:bet] %> || Pot: $<%= session[:pot] %></h4>
   </div>
@@ -24,7 +23,7 @@
 </div>
 <% end %>
 <div class="well hunter-green">
-  <h3 class="white">Dealer's Cards</h3>
+  <h3 class="white">Dealer's Cards<% if @dealer_show %> | Score: <%= session[:dealer_score]%><% end %></h3>
   <% if @dealer_turn %>
     <div class="alert alert-error" >
       Dealer has less than 17 and must hit.
@@ -41,11 +40,10 @@
     <img src="/images/cards/cover.jpg" />
     <%= card_image(session[:dealer_cards][1]) %>
   <% end %>
-  <h3 class="white"><%= session[:player]%>'s Cards</h3>
+  <h3 class="white"><%= session[:player]%>'s Cards | Score: <%= session[:player_score]%></h3>
     <% session[:player_cards].each do |x| %>
       <%= card_image(x) %>
       <% end %>
-  <h5 class="white"><%= session[:player]%>'s Score: <%= session[:player_score] %></h5>
 </div>
   <% if @action_buttons %>
   <form action="/player_hit" method="post">
