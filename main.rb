@@ -205,6 +205,7 @@ post '/play_again' do
 end
 
 post '/end_game' do
+  @good_terms = true
   erb :goodbye
 end
 
