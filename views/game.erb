@@ -26,9 +26,14 @@
 <div class="well hunter-green">
   <h3 class="white">Dealer's Cards</h3>
   <% if @dealer_turn %>
-  <form action="/dealer_hit" method="post">
-    <input type="submit" class="btn btn-error" value="Dealer's Next Card"/>
-  </form>
+    <div class="alert alert-error" >
+      Dealer has less than 17 and must hit.
+      <form action="/dealer_hit" method="post">
+        <input type="submit" class="btn btn-danger" value="See Dealer's Next Card --->"/>
+      </form>
+    </div>
+  <% end %>
+  <% if @dealer_show %>
   <% session[:dealer_cards].each do |x| %>
       <%= card_image(x) %>
       <% end %>

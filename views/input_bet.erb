@@ -1,12 +1,12 @@
-<% if @new_game %>
-  <h3>Welcome <%= session[:player] %>!</h3>
-<% else %>
-  <h3>Ready for another round?</h3>
-<% end %>
-
 <h3>You have, $<%= session[:pot]%> available to bet.</h3>
 
 <h3>How much do you want to bet?</h3>
+
+<% if @outcome_lose %>
+  <div class="alert alert-error">
+    <%= @outcome_lose %>
+  </div>
+<% end %>
 
 <form action="/game" method="post">
   <input type="text" name="bet" placeholder="Bet Amount" />
