@@ -44,9 +44,6 @@ helpers do
     file_path
   end
 
-  def who_wins
-  end
-
 
 end
 
@@ -68,9 +65,14 @@ get '/' do
   erb :player_name
 end
 
+get '/bet' do
+  erb :nasty
+end
+
+
 post '/bet' do
   if params[:player].empty?
-    @message = "You need to include a name, silly!"
+    @message = "You need to include a name, fucker!!"
     erb :player_name
   else
     session[:player] = params[:player]
